@@ -17,6 +17,7 @@ import static graphics.Color.WHITE;
  *
  * @author Asher Haun
  * @author Gabe
+ * @authot GoldSpark
  */
 
 public class SpriteRenderer extends Component {
@@ -27,8 +28,41 @@ public class SpriteRenderer extends Component {
 
     private Vector2f lastLocation;
     private Vector2f size;
-    private float rotation;
+    public float rotation = 0;
     private boolean isDirty; // Dirty flag, tells renderer to redraw if object components have changed
+
+    /**
+     * Create a spriteRenderer using a sprite that is already loaded.
+     * Default tint color is white (no tinting visible).
+     * Default size is the size of the texture
+     *
+     * @param sprite
+     */
+    public SpriteRenderer(Sprite sprite) {
+        super(ComponentOrder.DRAW);
+        this.sprite = sprite;
+        this.color = WHITE.toNormalizedVec4f();
+        this.isDirty = true;
+        this.size = new Vector2f();
+        this.size.x = sprite.getTexture().getWidth();
+        this.size.y = sprite.getTexture().getHeight();
+
+    }
+
+    /**
+     * Create a spriteRenderer using an image from the fileSystem.
+     * size is the size of the image
+     * @param path to the image (ie. "src/assets/images/pepper.png")
+     */
+    public SpriteRenderer(String path) {
+        super(ComponentOrder.DRAW);
+        this.sprite = new Sprite(Assets.getTexture(path));
+        this.color = WHITE.toNormalizedVec4f();
+        this.isDirty = true;
+        this.size = new Vector2f();
+        this.size.x = this.sprite.getTexture().getWidth();
+        this.size.y = this.sprite.getTexture().getHeight();
+    }
 
     /**
      * Create the spriteRenderer using a color vector, no sprite.
@@ -68,8 +102,16 @@ public class SpriteRenderer extends Component {
         this.sprite = sprite;
         this.color = WHITE.toNormalizedVec4f();
         this.isDirty = true;
+        if(size.x == 0 && size.y == 0)
+        {
+            size.x = sprite.getTexture().getWidth();
+            size.y = sprite.getTexture().getHeight();
+        }
+
         this.size = size;
     }
+
+
 
     /**
      * Create a spriteRenderer using an image from the fileSystem.

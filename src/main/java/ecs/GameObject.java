@@ -18,9 +18,10 @@ import java.util.List;
  * @author Asher Haun
  * @author Gabe
  * @author Juyas
+ * @authot GoldSpark
  */
 
-public class GameObject {
+public class GameObject implements Comparable<GameObject> {
 
     public static final String DEFAULT_GAMEOBJECT_NAME = "Default GameObject Name";
     public static final int DEFAULT_Z_INDEX = 0;
@@ -246,5 +247,12 @@ public class GameObject {
      */
     public List<Component> getComponents() {
         return components;
+    }
+
+
+
+    @Override
+    public int compareTo(GameObject o) {
+        return Long.compare(o.objId, objId);
     }
 }

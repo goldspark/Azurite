@@ -88,7 +88,6 @@ public class AudioMaster {
         for (AudioSource s : sources) {
             s.delete();
         }
-
         sources.clear();
         alcCloseDevice(device);
     }

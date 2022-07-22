@@ -1,5 +1,6 @@
 package util;
 
+
 import org.joml.Matrix3x2f;
 import org.joml.Vector2f;
 import physics.collision.CollisionInformation;
@@ -115,6 +116,21 @@ public class MathUtils {
         return new CollisionInformation(vector2fs, true);
 
     }
+
+    /**
+     * Helper functions to convert from rad to degrees and vice versa
+     * @author GoldSpark
+     */
+    public static double rad2Deg()
+    {
+        return 360 / (Math.PI * 2);
+    }
+    public static double deg2Rad()
+    {
+        return (Math.PI * 2) / 360;
+    }
+
+
 
     //helper function, just to define whether a certain point goes in the right direction
     private static boolean rightDirection(Vector2f vector, Vector2f towardsOrigin) {
@@ -730,5 +746,7 @@ public class MathUtils {
         System.arraycopy(array, toIndex, array, fromIndex, length - toIndex);
         return length - (toIndex - fromIndex);
     }
+
+
 
 }

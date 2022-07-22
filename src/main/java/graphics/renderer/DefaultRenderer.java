@@ -6,6 +6,7 @@ import graphics.*;
 import org.joml.Vector2f;
 import util.Assets;
 import util.Engine;
+import util.MathUtils;
 import util.Transform;
 
 import java.util.ArrayList;
@@ -99,10 +100,13 @@ public class DefaultRenderer extends Renderer {
                     case 3: yAdd = 1.0f; break;
                 }
 
-                float scaledX = (xAdd * scale.x);
-                float scaledY = (yAdd * scale.y);
+                float shiftedX = ((xAdd - 0.5f) * scale.x);
+                float shiftedY = ((yAdd - 0.5f) * scale.y);
+                float rotatedX = shiftedX * (float)Math.cos(sprite.rotation * 0.01745329251f) + shiftedY * (float)Math.sin(sprite.rotation * 0.01745329251f);
+                float rotatedY = -shiftedX * (float)Math.sin(sprite.rotation * 0.01745329251f) + shiftedY * (float)Math.cos(sprite.rotation * 0.01745329251f);
 
-                batch.pushVec2(pos.x + scaledX, pos.y + scaledY);
+
+                batch.pushVec2(pos.x + rotatedX, pos.y + rotatedY);
                 batch.pushColor(sprite.getColor());
                 batch.pushVec2(textureCoordinates[i]);
                 batch.pushInt(textureID);

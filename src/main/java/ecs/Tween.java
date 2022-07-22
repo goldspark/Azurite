@@ -25,7 +25,10 @@ public class Tween extends Component{
 
 
 
-    private class TweenData{
+    /**
+     * Contains information about the current tween object
+     */
+    private static class TweenData{
         public Vector2f value;
         public Vector2f startPos;
         public Vector2f target;
@@ -37,12 +40,19 @@ public class Tween extends Component{
     }
 
 
+    /**
+     * List of tweens to be processed
+     */
     private final List<TweenData> tweens = new ArrayList<>();
     //What tween are we currently processing
     private int index = 0;
 
-    //Difference between start and end vector
+    /**
+     *  Difference between start and end vector
+     */
     private Vector2f change = new Vector2f();
+
+
     private boolean startTween = false;
     private boolean allTweensFinished = false;
 
@@ -223,19 +233,19 @@ public class Tween extends Component{
     /**
      * Smoothly changes object's value from startPos to target
      * @param object Value to change using this tween. This can be Transform of an object like position or size or anything really that is Vector2f for now
-     * @param startPos Starting position of the object
-     * @param target Ending destination
+     * @param startVal Starting value of the object
+     * @param endVal Ending value of the object
      * @param duration How long will it take for the object to reach its destination in seconds
      * @param tweenMode Minor movement effects of the object
      */
-    public void setUpTweenObject(Vector2f object, Vector2f startPos, Vector2f target, float duration, TweenMode tweenMode)
+    public void setUpTweenObject(Vector2f object, Vector2f startVal, Vector2f endVal, float duration, TweenMode tweenMode)
     {
         if(!startTween) {
             TweenData data = new TweenData();
 
             data.value = object;
-            data.startPos  = new Vector2f(startPos);
-            data.target    = new Vector2f(target);
+            data.startPos  = new Vector2f(startVal);
+            data.target    = new Vector2f(endVal);
             data.duration  = duration;
             data.tweenMode = tweenMode;
             data.t = 0.0f;

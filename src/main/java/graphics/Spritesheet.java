@@ -75,6 +75,11 @@ public class Spritesheet {
     public List<Sprite> getSprites() {
         return sprites;
     }
+
+    public Texture getTexture()
+    {
+        return texture;
+    }
 }
 
 
