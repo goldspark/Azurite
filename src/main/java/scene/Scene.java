@@ -1,18 +1,19 @@
 package scene;
 
 import ecs.GameObject;
-import ui.Element;
-import ui.RenderableElement;
-import ui.Text;
 import graphics.Camera;
 import graphics.Texture;
+import graphics.postprocess.ForwardToTexture;
+import graphics.postprocess.PostProcessStep;
 import graphics.renderer.*;
 import input.Keyboard;
 import org.lwjgl.glfw.GLFW;
 import physics.collision.Collider;
-import graphics.postprocess.ForwardToTexture;
-import graphics.postprocess.PostProcessStep;
+import ui.Element;
+import ui.RenderableElement;
+import ui.Text;
 import util.Engine;
+import util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,11 +27,12 @@ import java.util.List;
  * public class Main extends Scene {
  *     public static void main(String[] args) {
  *         Engine.init(1920, 1080, "Azurite Engine Demo In Comment", 1.0f);
- *         Engine.scenes().switchScene(new Main(), true);
+ *         Engine.scenes().switchScene(new Main());
  *         Engine.showWindow();
  *     }
  *
  *     public void awake() {
+ *         Graphics.setDefaultBackground(Color.BLACK);
  *         camera = new Camera();
  *         ...
  *     }
@@ -48,11 +50,12 @@ import java.util.List;
  *
  *     public static void main(String[] args) {
  *         Engine.init(1920, 1080, "Azurite Engine Demo In Comment", 1.0f);
- *         Engine.scenes().switchScene(new Main(), true);
+ *         Engine.scenes().switchScene(new Main());
  *         Engine.showWindow();
  *     }
  *
  *     public void awake() {
+ *         Graphics.setDefaultBackground(Color.BLACK);
  *         camera = new Camera();
  *
  *         player = new GameObject();
@@ -114,6 +117,7 @@ public abstract class Scene {
      */
     public void activate() {
         this.active = true;
+        Log.debug("scene " + sceneId + " activated");
     }
 
     /**
@@ -123,6 +127,7 @@ public abstract class Scene {
      */
     public void deactivate() {
         this.active = false;
+        Log.debug("scene " + sceneId + " deactivated");
     }
 
     /**
@@ -213,6 +218,7 @@ public abstract class Scene {
     }
 
     public void updateUI () {
+        // Logger.logInfo("There are " + texts.size() + " text elements.");
         for (Element e : uiElements) {
             e.update();
         }
